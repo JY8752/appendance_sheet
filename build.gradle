@@ -35,6 +35,8 @@ dependencies {
     compile('org.springframework.security:spring-security-config')
     compile('org.thymeleaf.extras:thymeleaf-extras-springsecurity5')
     testCompile group: 'org.springframework.security', name: 'spring-security-test', version: '5.3.3.RELEASE'
+    compile group: 'org.webjars', name: 'bootstrap', version: '4.5.0'
+    compile group: 'org.webjars', name: 'jquery', version: '3.4.1'
 }
 
 test {
