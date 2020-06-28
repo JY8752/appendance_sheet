@@ -1,0 +1,33 @@
+{
+	"folders": [
+        {
+            "name": "attendance_sheet",
+            "path": "."
+        },
+        {
+            "path": "../spring_lessons"
+        }
+    ],
+    "settings": {
+        "java.configuration.updateBuildConfiguration": "automatic"
+    },
+    "launch": {
+        "version": "0.2.0",
+        "configurations": [
+        
+            {
+                "type": "java",
+                "name": "Debug (Launch) - Current File",
+                "request": "launch",
+                "mainClass": "${file}"
+            },
+            {
+                "type": "java",
+                "name": "Debug (Launch)-DemoApplication<attendance_sheet>",
+                "request": "launch",
+                "mainClass": "com.example.attendance_sheet.DemoApplication",
+                "projectName": "attendance_sheet"
+            }
+        ]
+    }
+}

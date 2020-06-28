@@ -1,0 +1,14 @@
+spring:
+  datasource:
+    initialization-mode: always
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/lessonsdb
+    username: root
+    password:
+    schema: classpath:schema.sql
+    data: classpath:data.sql
+    sql-script-encoding: utf-8
+  # jpa:
+  #   hibernate.ddl-auto: update
+  #   generate-ddl: true
+  #   show-sql: true
