@@ -1,18 +1,15 @@
 drop table if exists employee;
 drop table if exists m_user;
+drop table if exists user;
 
-create table employee(
-  employee_id int primary key not null auto_increment,
-  employee_name varchar(50),
-  age int
-);
-
-create table m_user(
-    user_id varchar(50) primary key,
-    password varchar(100),
-    user_name varchar(50),
-    birthday date,
-    age int,
-    marrige boolean,
-    role varchar(50)
+create table lessonsdb.user(
+    user_id int primary key auto_increment,
+    password varchar(100) not null,
+    user_name varchar(50) not null,
+    email varchar(100) not null unique,
+    role varchar(50) not null,
+    password_last_changed datetime,
+    password_last_reset datetime,
+    updated_at datetime,
+    created_at datetime not null
 );
