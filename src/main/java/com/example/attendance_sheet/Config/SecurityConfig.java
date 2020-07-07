@@ -66,30 +66,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         return new UserDetailsServiceImpl();
     }
 
-    @Bean
-    public SecurityContextRepository securityContextRepository() {
-        return new SecurityContextRepository(){
-        
-            @Override
-            public void saveContext(SecurityContext context, HttpServletRequest request, HttpServletResponse response) {
-                // TODO Auto-generated method stub
-                
-            }
-        
-            @Override
-            public SecurityContext loadContext(HttpRequestResponseHolder requestResponseHolder) {
-                // TODO Auto-generated method stub
-                return null;
-            }
-        
-            @Override
-            public boolean containsContext(HttpServletRequest request) {
-                // TODO Auto-generated method stub
-                return false;
-            }
-        };
-    }
-
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService());
@@ -98,5 +74,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Bean
     public PasswordEncoder passwordEncoder() {
         return PasswordEncoderFactories.createDelegatingPasswordEncoder();
+    }
+
+    @Bean
+    public SecurityContextRepository securityContextRepository() {
+        return new SimpleContextRepository();
     }
 }
