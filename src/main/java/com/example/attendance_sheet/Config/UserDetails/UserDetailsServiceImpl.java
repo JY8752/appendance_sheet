@@ -19,14 +19,14 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserEntity userEntity = userRepository.findByEmail(username)
             .orElseThrow(() -> new UsernameNotFoundException("ユーザーが見つかりません"));
         
-        return new UserDetails(userEntity.getId(), userEntity.getEmail(), userEntity.getName(), userEntity.getPassword());
+        return new UserDetails(userEntity.getId(), userEntity.getEmail(), userEntity.getPassword(), userEntity.getName());
     }
 
     @Override
     public UserDetails loadUserByUsername(Integer id) throws UsernameNotFoundException {
         UserEntity userEntity = userRepository.findById(id)
             .orElseThrow(() -> new UsernameNotFoundException("ユーザーが見つかりません"));
-            return new UserDetails(userEntity.getId(), userEntity.getEmail(), userEntity.getName(), userEntity.getPassword());
+            return new UserDetails(userEntity.getId(), userEntity.getEmail(), userEntity.getPassword(), userEntity.getName());
     }
 
     @Override

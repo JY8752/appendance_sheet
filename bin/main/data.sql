@@ -1,2 +1,2 @@
 insert into user(password, user_name, email, role, password_last_changed, password_last_reset, updated_at, created_at)
-values( '{bcrypt}$2a$10$yDXbkd7AhstMiUVb98GfVO48vrHAAh/zPzgS06TrL1YNwo61GkNcW', 'テストユーザー', 'test@example.com', 'ROLE_TEST', null, null, null, now());
+values('$2a$10$qh0Z0u5XYLwWZCmDY6qtR.z8MDFm3sMCPxt6qU.DdoLcUviOQ2sDq', 'テストユーザー', 'test@example.com', 'ROLE_TEST', null, null, null, now());

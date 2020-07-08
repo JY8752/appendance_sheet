@@ -37,6 +37,8 @@ dependencies {
     testCompile group: 'org.springframework.security', name: 'spring-security-test', version: '5.3.3.RELEASE'
     compile 'org.webjars:jquery:3.5.1'
     compile 'org.webjars:bootstrap:4.5.0'
+    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.16.1'
+
 }
 
 test {

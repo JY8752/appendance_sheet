@@ -25,6 +25,10 @@ public class UserEntity {
     @Column(name = "email", length = 100, nullable = false, unique = true)
     private String email;
 
+    /** roleプロパティ */
+    @Column(name = "role", length = 50, nullable = false)
+    private String role;
+
     /** nameプロパティ */
     @Column(name = "user_name", length = 50, nullable = false)
     private String name;
