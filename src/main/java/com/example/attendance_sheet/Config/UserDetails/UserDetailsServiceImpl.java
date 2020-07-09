@@ -23,7 +23,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     }
 
     @Override
-    public UserDetails loadUserByUsername(Integer id) throws UsernameNotFoundException {
+    public UserDetails loadUserById(Integer id) throws UsernameNotFoundException {
         UserEntity userEntity = userRepository.findById(id)
             .orElseThrow(() -> new UsernameNotFoundException("ユーザーが見つかりません"));
             return new UserDetails(userEntity.getId(), userEntity.getEmail(), userEntity.getPassword(), userEntity.getName());
@@ -31,7 +31,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Override
     public void login(int id) {
-        UserDetails userDetails = this.loadUserByUsername(id);
+        UserDetails userDetails = this.loadUserById(id);
         if(userDetails == null) {
             return;
         }

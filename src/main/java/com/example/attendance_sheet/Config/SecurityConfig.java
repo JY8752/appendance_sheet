@@ -1,11 +1,9 @@
 package com.example.attendance_sheet.Config;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
 import com.example.attendance_sheet.Config.UserDetails.UserDetailsService;
 import com.example.attendance_sheet.Config.UserDetails.UserDetailsServiceImpl;
 
+import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -13,12 +11,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.context.HttpRequestResponseHolder;
-import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -36,7 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.setSharedObject(HttpSessionSecurityContextRepository.class, new HttpSessionSecurityContextRepository());
+        http.setSharedObject(SecurityContextRepository.class, securityContextRepository());
 
         http.
             authorizeRequests()
@@ -80,5 +74,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Bean
     public SecurityContextRepository securityContextRepository() {
         return new SimpleContextRepository();
+    }
+
+    @Bean
+    public ServletContextInitializer servletContextInitializer() {
+        return new CookieOnlySessionTrackingServletContextInitializer();
     }
 }

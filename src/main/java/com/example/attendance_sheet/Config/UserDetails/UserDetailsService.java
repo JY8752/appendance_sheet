@@ -1,6 +1,5 @@
 package com.example.attendance_sheet.Config.UserDetails;
 
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 public interface UserDetailsService extends org.springframework.security.core.userdetails.UserDetailsService{
@@ -11,7 +10,7 @@ public interface UserDetailsService extends org.springframework.security.core.us
      * @return UserDetails
      * @throws UsernameNotFoundException
      */
-    UserDetails loadUserByUsername(Integer id) throws UsernameNotFoundException;
+    UserDetails loadUserById(Integer id) throws UsernameNotFoundException;
 
     void login(int id);
 
