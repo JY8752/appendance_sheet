@@ -1,5 +1,3 @@
-drop table if exists employee;
-drop table if exists m_user;
 drop table if exists user;
 
 create table lessonsdb.user(
@@ -7,7 +5,7 @@ create table lessonsdb.user(
     password varchar(100) not null,
     user_name varchar(50) not null,
     email varchar(100) not null unique,
-    role varchar(50) not null,
+    role char(1) not null,
     password_last_changed datetime,
     password_last_reset datetime,
     updated_at datetime,

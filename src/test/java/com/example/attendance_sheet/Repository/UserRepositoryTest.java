@@ -29,7 +29,7 @@ public class UserRepositoryTest {
         entity.setPasswordLastChanged(null);
         entity.setPasswordLastReset(null);
         entity.setUpdatetdAt(null);
-        entity.setRole("test");
+        entity.setRole('0');
         userRepository.save(entity);
 
         UserEntity actual = userRepository.findById(entity.getId()).get();

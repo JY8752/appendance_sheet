@@ -7,16 +7,16 @@ import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
-@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
@@ -30,30 +30,30 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.setSharedObject(SecurityContextRepository.class, securityContextRepository());
+        // http.setSharedObject(SecurityContextRepository.class, securityContextRepository());
 
         http.
             authorizeRequests()
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/css/**").permitAll()
-                .antMatchers("/login").permitAll()
-                .antMatchers("/admin").hasAnyAuthority("ROLE_ADMIN")
+                .antMatchers("/login/").permitAll()
                 .anyRequest().authenticated();
-                //ログイン処理
-                http
-                .formLogin()
-                .loginProcessingUrl("/login")//ログイン処理のパス
-                .loginPage("/login")//ログインページの指定
-                .failureUrl("/login")//ログイン失敗時の遷移先
-                .usernameParameter("email")//ログインページのユーザーID
-                .passwordParameter("password")//ログインページのパスワード
-                .defaultSuccessUrl("/home", true);//ログイン成功時の遷移先
-                //ログアウト処理
-                http
-                    .logout()
-                        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-                        .logoutUrl("/logout")
-                        .logoutSuccessUrl("/login");
+        //ログイン処理
+        http
+        .formLogin()
+        .loginProcessingUrl("/login/")//ログイン処理のパス
+        .loginPage("/login/")//ログインページの指定
+        .failureUrl("/login/")//ログイン失敗時の遷移先
+        .usernameParameter("email")//ログインページのユーザーID
+        .passwordParameter("password")//ログインページのパスワード
+        .defaultSuccessUrl("/home/");//ログイン成功時の遷移先
+        //ログアウト処理
+        http
+            .logout()
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout/"))
+                .logoutUrl("/logout/")
+                .logoutSuccessUrl("/login/")
+                .invalidateHttpSession(true);
     }
 
     @Bean
@@ -71,6 +71,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         return new BCryptPasswordEncoder();
     }
 
+    //SecurityContentHolderにうまく格納されていない？
     @Bean
     public SecurityContextRepository securityContextRepository() {
         return new SimpleContextRepository();

@@ -2,6 +2,8 @@ package com.example.attendance_sheet.Config.UserDetails;
 
 import java.util.Collection;
 
+import com.example.attendance_sheet.Common.UserRole;
+
 import org.springframework.security.core.GrantedAuthority;
 
 import lombok.Data;
@@ -22,11 +24,14 @@ public class UserDetails implements org.springframework.security.core.userdetail
 
     private  final String name;
 
-    public UserDetails(Integer id, String email, String password, String name) {
+    private final UserRole role;
+
+    public UserDetails(Integer id, String email, String password, String name, UserRole role) {
         this.id = id;
         this.email = email;
         this.password = password;
         this.name = name;
+        this.role = role;
     }
 
     @Override

@@ -26,8 +26,8 @@ public class UserEntity {
     private String email;
 
     /** roleプロパティ */
-    @Column(name = "role", length = 50, nullable = false)
-    private String role;
+    @Column(name = "role", length = 1, nullable = false)
+    private char role;
 
     /** nameプロパティ */
     @Column(name = "user_name", length = 50, nullable = false)

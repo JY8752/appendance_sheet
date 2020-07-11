@@ -1,5 +1,7 @@
 package com.example.attendance_sheet.Config.UserDetails;
 
+import com.example.attendance_sheet.Common.UserRole;
+import com.example.attendance_sheet.Common.Exception.UserRoleNotFoundException;
 import com.example.attendance_sheet.Entity.UserEntity;
 import com.example.attendance_sheet.Repository.UserRepository;
 
@@ -19,14 +21,21 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserEntity userEntity = userRepository.findByEmail(username)
             .orElseThrow(() -> new UsernameNotFoundException("ユーザーが見つかりません"));
         
-        return new UserDetails(userEntity.getId(), userEntity.getEmail(), userEntity.getPassword(), userEntity.getName());
+        UserRole role = UserRole.getUserRoleById(userEntity.getRole())
+            .orElseThrow(() -> new UserRoleNotFoundException("ロールが見つかりません"));
+
+        return new UserDetails(userEntity.getId(), userEntity.getEmail(), userEntity.getPassword(), userEntity.getName(), role);
     }
 
     @Override
     public UserDetails loadUserById(Integer id) throws UsernameNotFoundException {
         UserEntity userEntity = userRepository.findById(id)
             .orElseThrow(() -> new UsernameNotFoundException("ユーザーが見つかりません"));
-            return new UserDetails(userEntity.getId(), userEntity.getEmail(), userEntity.getPassword(), userEntity.getName());
+
+        UserRole role = UserRole.getUserRoleById(userEntity.getRole())
+            .orElseThrow(() -> new UserRoleNotFoundException("ロールが見つかりません"));
+
+        return new UserDetails(userEntity.getId(), userEntity.getEmail(), userEntity.getPassword(), userEntity.getName(), role);
     }
 
     @Override
