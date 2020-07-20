@@ -30,29 +30,29 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        // http.setSharedObject(SecurityContextRepository.class, securityContextRepository());
+        http.setSharedObject(SecurityContextRepository.class, securityContextRepository());
 
         http.
             authorizeRequests()
                 .antMatchers("/webjars/**").permitAll()
                 .antMatchers("/css/**").permitAll()
-                .antMatchers("/login/").permitAll()
+                .antMatchers("/login").permitAll()
                 .anyRequest().authenticated();
         //ログイン処理
         http
         .formLogin()
-        .loginProcessingUrl("/login/")//ログイン処理のパス
-        .loginPage("/login/")//ログインページの指定
-        .failureUrl("/login/")//ログイン失敗時の遷移先
+        .loginProcessingUrl("/login")//ログイン処理のパス
+        .loginPage("/login")//ログインページの指定
+        .failureUrl("/login")//ログイン失敗時の遷移先
         .usernameParameter("email")//ログインページのユーザーID
         .passwordParameter("password")//ログインページのパスワード
-        .defaultSuccessUrl("/home/");//ログイン成功時の遷移先
+        .defaultSuccessUrl("/home");//ログイン成功時の遷移先
         //ログアウト処理
         http
             .logout()
-                .logoutRequestMatcher(new AntPathRequestMatcher("/logout/"))
-                .logoutUrl("/logout/")
-                .logoutSuccessUrl("/login/")
+                .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+                .logoutUrl("/logout")
+                .logoutSuccessUrl("/login")
                 .invalidateHttpSession(true);
     }
 

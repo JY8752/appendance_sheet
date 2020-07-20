@@ -6,3 +6,8 @@
     align-items: center;
     justify-content: center;
 }
+
+/* ホーム */
+.sidebar {
+    list-style-type: none;
+}
