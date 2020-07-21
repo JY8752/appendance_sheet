@@ -7,6 +7,10 @@
     justify-content: center;
 }
 
+html, body {
+    background-color: #F4F5F7;
+}
+
 /* ホーム */
 .sidebar > ul {
     list-style-type: none;
@@ -19,4 +23,9 @@
 
 .sidebar > h4 {
     word-wrap: break-word;
+}
+
+a {
+    text-decoration: none;
+    color: #000;
 }
