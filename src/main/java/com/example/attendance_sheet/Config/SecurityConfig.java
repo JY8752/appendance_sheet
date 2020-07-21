@@ -3,7 +3,6 @@ package com.example.attendance_sheet.Config;
 import com.example.attendance_sheet.Config.UserDetails.UserDetailsService;
 import com.example.attendance_sheet.Config.UserDetails.UserDetailsServiceImpl;
 
-import org.springframework.boot.web.servlet.ServletContextInitializer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -11,9 +10,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.web.context.SecurityContextRepository;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @EnableGlobalMethodSecurity(prePostEnabled = true)
@@ -30,7 +28,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http.setSharedObject(SecurityContextRepository.class, securityContextRepository());
+        // http.setSharedObject(SecurityContextRepository.class, securityContextRepository());
 
         http.
             authorizeRequests()
@@ -53,7 +51,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
                 .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login")
-                .invalidateHttpSession(true);
+                .invalidateHttpSession(true)
+                .deleteCookies("JSESSIONID");
     }
 
     @Bean
@@ -68,17 +67,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     @Bean
     public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
+        return PasswordEncoderFactories.createDelegatingPasswordEncoder();
     }
 
-    //SecurityContentHolderにうまく格納されていない？
-    @Bean
-    public SecurityContextRepository securityContextRepository() {
-        return new SimpleContextRepository();
-    }
+    // @Bean
+    // public SecurityContextRepository securityContextRepository() {
+    //     return new SimpleContextRepository();
+    // }
 
-    @Bean
-    public ServletContextInitializer servletContextInitializer() {
-        return new CookieOnlySessionTrackingServletContextInitializer();
-    }
+    // @Bean
+    // public ServletContextInitializer servletContextInitializer() {
+    //     return new CookieOnlySessionTrackingServletContextInitializer();
+    // }
 }

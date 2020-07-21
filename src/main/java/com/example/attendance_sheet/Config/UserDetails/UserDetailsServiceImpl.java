@@ -10,6 +10,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
@@ -24,7 +27,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserRole role = UserRole.getUserRoleById(userEntity.getRole())
             .orElseThrow(() -> new UserRoleNotFoundException("ロールが見つかりません"));
 
-        return new UserDetails(userEntity.getId(), userEntity.getEmail(), userEntity.getPassword(), userEntity.getName(), role);
+        UserDetails userDetails = new UserDetails(userEntity.getId(), userEntity.getEmail(), userEntity.getPassword(), userEntity.getName(), role);
+        log.trace("[loadUserByUserName] Returned UserDetails(User_ID:{}).", userDetails.getId());
+
+        return userDetails;
+
     }
 
     @Override
@@ -35,7 +42,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         UserRole role = UserRole.getUserRoleById(userEntity.getRole())
             .orElseThrow(() -> new UserRoleNotFoundException("ロールが見つかりません"));
 
-        return new UserDetails(userEntity.getId(), userEntity.getEmail(), userEntity.getPassword(), userEntity.getName(), role);
+        UserDetails userDetails = new UserDetails(userEntity.getId(), userEntity.getEmail(), userEntity.getPassword(), userEntity.getName(), role);
+        log.trace("[loadUserById] Returned UserDetails(User_ID:{}).", userDetails.getId());
+
+        return userDetails;
     }
 
     @Override

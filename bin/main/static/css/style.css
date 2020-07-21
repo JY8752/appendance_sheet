@@ -8,6 +8,15 @@
 }
 
 /* ホーム */
-.sidebar {
+.sidebar > ul {
     list-style-type: none;
+    padding-left: 0;
+}
+
+.sidebar {
+    height: 100vh;
+}
+
+.sidebar > h4 {
+    word-wrap: break-word;
 }

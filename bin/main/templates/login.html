@@ -10,7 +10,7 @@
     <title>ログイン</title>
 </head>
 <body>
-    <form role="form" method="post" th:action="@{/login/}" class="login-form">
+    <form role="form" method="post" th:action="@{/login}" class="login-form">
         <div class="card p-5">
             <p th:if="${session['SPRING_SECURITY_LAST_EXCEPTION']} != null"
             th:text="${session['SPRING_SECURITY_LAST_EXCEPTION'].message}"
