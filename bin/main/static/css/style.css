@@ -21,11 +21,16 @@ html, body {
     height: 100vh;
 }
 
-.sidebar > h4 {
+.sidebar  h4 {
     word-wrap: break-word;
 }
 
-a {
+.sidebar  a {
     text-decoration: none;
     color: #000;
+}
+
+.sidebar  a:hover {
+    opacity: 0.3;
+    text-decoration: none;
 }
